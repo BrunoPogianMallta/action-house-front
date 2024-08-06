@@ -34,6 +34,7 @@ const useFetchData = () => {
       const response = await axios.get('http://localhost:3001/api/v1/get-servers', {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
+      console.log('servers:', response)
       return response;
     } catch (error) {
       console.error('Erro ao buscar servidores:', error.response ? error.response.data : error.message);

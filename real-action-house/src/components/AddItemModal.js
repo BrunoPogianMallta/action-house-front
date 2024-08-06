@@ -15,8 +15,8 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(formData);
+    e.preventDefault(); // Previne o comportamento padrão do formulário
+    onSubmit(formData); // Passa o formData para a função onSubmit
   };
 
   return (
@@ -71,7 +71,7 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose }) => {
             >
               <option value="">Selecione o servidor</option>
               {servers.map((server, index) => (
-                <option key={index} value={server.serverName}>{server.serverName}</option>
+                <option key={index} value={server}>{server}</option>
               ))}
             </select>
           </label>

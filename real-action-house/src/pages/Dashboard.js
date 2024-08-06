@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import '../styles/Dashboard.css';
-import goblinAvatar from '../img/goblin_avatar.png'; // Corrija o caminho da imagem
+import goblinAvatar from '../img/goblin_avatar.png'; // Verifique se o caminho está correto
 import Sidebar from '../components/Sidebar';
 import ItemsTable from '../components/ItemsTable';
 import AddItemModal from '../components/AddItemModal';
@@ -40,13 +40,11 @@ function Dashboard() {
 
         const itemTypesResponse = await fetchItemTypes();
         if (isMounted) {
-          // Acessa o array dentro do objeto retornado
           setItemTypes(itemTypesResponse.data.itemTypes || []);
         }
 
         const serversResponse = await fetchServers();
         if (isMounted) {
-          // Acessa o array dentro do objeto retornado
           setServers(serversResponse.data.servers || []);
         }
 
@@ -90,8 +88,7 @@ function Dashboard() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (formData) => {
     try {
       await axios.post('http://localhost:3001/api/v1/items', formData, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
@@ -130,6 +127,8 @@ function Dashboard() {
               servers={servers}
               onSubmit={handleSubmit}
               onClose={() => setShowModal(false)}
+              formData={formData}
+              onFormChange={handleFormChange}
             />
           )}
         </main>
