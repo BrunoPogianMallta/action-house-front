@@ -1,0 +1,19 @@
+
+/* UserProfile.css */
+.user-profile-container {
+    padding: 20px;
+  }
+  
+  .logout-button {
+    background-color: red; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; /* Adiciona espaçamento */
+    cursor: pointer; /* Muda o cursor para indicar clicável */
+    margin-top: 20px; /* Espaço acima do botão */
+    border-radius: 5px; /* Borda arredondada */
+  }
+  
+  .logout-button:hover {
+    background-color: darkred; 
+}
