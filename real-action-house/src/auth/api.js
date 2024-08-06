@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3001/api/v1';
+const API_URL = 'https://action-house.onrender.com/api/v1/';
 
 export const fetchItems = async (token) => {
   const response = await axios.get(`${API_URL}/items`, {
