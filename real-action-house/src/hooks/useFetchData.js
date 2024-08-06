@@ -15,6 +15,20 @@ const useFetchData = () => {
     }
   }, []);
 
+  // Função para buscar itens por nome
+  const fetchItemsByName = useCallback(async (itemName) => {
+    try {
+      const response = await axios.get('http://localhost:3001/api/v1/search', {
+        params: { itemName },
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      return response;
+    } catch (error) {
+      console.error('Erro ao buscar itens por nome:', error.response ? error.response.data : error.message);
+      throw error; // Repassa o erro para ser tratado no componente
+    }
+  }, []);
+
   // Função para buscar tipos de itens
   const fetchItemTypes = useCallback(async () => {
     try {
@@ -34,7 +48,6 @@ const useFetchData = () => {
       const response = await axios.get('http://localhost:3001/api/v1/get-servers', {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
-      console.log('servers:', response)
       return response;
     } catch (error) {
       console.error('Erro ao buscar servidores:', error.response ? error.response.data : error.message);
@@ -55,7 +68,7 @@ const useFetchData = () => {
     }
   }, []);
 
-  return { fetchItems, fetchItemTypes, fetchServers, fetchUserDetails };
+  return { fetchItems, fetchItemsByName, fetchItemTypes, fetchServers, fetchUserDetails };
 };
 
 export default useFetchData;

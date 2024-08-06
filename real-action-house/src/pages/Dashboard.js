@@ -28,7 +28,7 @@ function Dashboard() {
     price: 0
   });
 
-  const { fetchItems, fetchItemTypes, fetchServers, fetchUserDetails } = useFetchData();
+  const { fetchItems, fetchItemsByName, fetchItemTypes, fetchServers, fetchUserDetails } = useFetchData();
 
   useEffect(() => {
     let isMounted = true;
@@ -62,11 +62,13 @@ function Dashboard() {
     };
   }, [fetchItems, fetchItemTypes, fetchServers, fetchUserDetails]);
 
-  const handleSearch = () => {
-    const filteredItems = items.filter(item => 
-      item.itemName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setItems(filteredItems);
+  const handleSearch = async () => {
+    try {
+      const response = await fetchItemsByName(searchTerm);
+      setItems(response.data);
+    } catch (error) {
+      console.error('Erro ao buscar itens:', error.response ? error.response.data : error.message);
+    }
   };
 
   const handleAction = async (itemId) => {
