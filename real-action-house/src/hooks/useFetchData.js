@@ -5,7 +5,7 @@ const useFetchData = () => {
   // Função para buscar itens
   const fetchItems = useCallback(async () => {
     try {
-      const response = await axios.get('http:https://action-house.onrender.com/api/v1/items', {
+      const response = await axios.get('https://action-house.onrender.com/api/v1/items', {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       return response;
