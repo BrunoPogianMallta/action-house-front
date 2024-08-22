@@ -15,7 +15,7 @@ function Register() {
     setError('');
 
     try {
-      const response = await axios.post('https://action-house.onrender.com/api/v1/register', {
+      const response = await axios.post('http://localhost:3001/api/v1/register', {
         name,
         email,
         password,

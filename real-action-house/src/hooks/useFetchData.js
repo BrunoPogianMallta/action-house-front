@@ -1,11 +1,12 @@
 import { useCallback } from 'react';
+import { API_URL } from '../config'
 import axios from 'axios';
 
 const useFetchData = () => {
   // Função para buscar itens
   const fetchItems = useCallback(async () => {
     try {
-      const response = await axios.get('https://action-house.onrender.com/api/v1/items', {
+      const response = await axios.get(`${API_URL}/items`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       return response;
@@ -18,7 +19,7 @@ const useFetchData = () => {
   // Função para buscar itens por nome
   const fetchItemsByName = useCallback(async (itemName) => {
     try {
-      const response = await axios.get('https://action-house.onrender.com/api/v1/search', {
+      const response = await axios.get(`${API_URL}/search`, {
         params: { itemName },
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
@@ -32,7 +33,7 @@ const useFetchData = () => {
   // Função para buscar tipos de itens
   const fetchItemTypes = useCallback(async () => {
     try {
-      const response = await axios.get('https://action-house.onrender.com/api/v1/item-types', {
+      const response = await axios.get(`${API_URL}/item-types`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       return response;
@@ -45,7 +46,7 @@ const useFetchData = () => {
   // Função para buscar servidores
   const fetchServers = useCallback(async () => {
     try {
-      const response = await axios.get('https://action-house.onrender.com/api/v1/get-servers', {
+      const response = await axios.get(`${API_URL}/get-servers`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       return response;
@@ -58,7 +59,7 @@ const useFetchData = () => {
   // Função para buscar detalhes do usuário
   const fetchUserDetails = useCallback(async () => {
     try {
-      const response = await axios.get('https://action-house.onrender.com/api/v1/user', {
+      const response = await axios.get(`${API_URL}/user`, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       return response;

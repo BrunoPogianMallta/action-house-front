@@ -75,7 +75,7 @@ function Dashboard() {
     const confirmPurchase = window.confirm('Você tem certeza que deseja comprar este item?');
     if (confirmPurchase) {
       try {
-        await axios.post('http://localhost:3001/api/v1/items/buy', { itemId }, {
+        await axios.post('http://localhost:3001/api/v1/buy-item',{ itemId }, {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         });
         alert('Item comprado com sucesso!');

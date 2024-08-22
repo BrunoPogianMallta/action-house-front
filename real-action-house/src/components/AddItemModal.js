@@ -4,6 +4,7 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose }) => {
   const [formData, setFormData] = useState({
     itemName: '',
     itemType: '',
+    itemQuantity: 0,
     saleDuration: 12,
     server: '',
     price: 0
@@ -11,11 +12,14 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose }) => {
 
   const handleFormChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: name === 'saleDuration' ? parseInt(value, 10) : value
+    }));
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Previne o comportamento padrão do formulário
+    e.preventDefault();
     onSubmit(formData); // Passa o formData para a função onSubmit
   };
 
@@ -47,6 +51,18 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose }) => {
                 <option key={index} value={type}>{type}</option>
               ))}
             </select>
+          </label>
+          <label>
+            Quantidade
+            <input
+              type="number"
+              name="itemQuantity"
+              value={formData.itemQuantity}
+              onChange={handleFormChange}
+              required
+              min="1"
+              step="1"
+            />
           </label>
           <label>
             Duração
