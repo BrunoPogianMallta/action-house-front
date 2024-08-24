@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './ResetPassword.css'; // Certifique-se de criar um arquivo CSS correspondente, se necessário
+import './ResetPassword.css'; 
 
 function ResetPassword() {
   return (

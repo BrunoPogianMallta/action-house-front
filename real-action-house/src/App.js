@@ -1,19 +1,35 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './components/Login';
-import Register from './components/Register';
-import ResetPassword from './components/ResetPassword';
+import HomePage from './pages/HomePage';
+import ResetPassword from './components/resetPassword/ResetPassword';
 import Dashboard from './pages/Dashboard';
+import SessionExpired from './components/session/SessionExpired';
+import ProtectedRoute from './components/ProtectedRoute';
+import AuctionHouse from './pages/AuctionHouse';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<HomePage />} /> {/* Página inicial não protegida */}
         <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        {/* Adicione outras rotas conforme necessário */}
+        <Route path="/session-expired" element={<SessionExpired />} />
+        <Route 
+          path="/dashboard" 
+          element={
+            <ProtectedRoute
+              element={<Dashboard />}
+            />
+          } 
+        />
+        <Route 
+          path="/auction-house" 
+          element={
+            <ProtectedRoute
+              element={<AuctionHouse />}
+            />
+          } 
+        />
       </Routes>
     </Router>
   );

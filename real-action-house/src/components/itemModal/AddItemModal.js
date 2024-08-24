@@ -1,26 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const AddItemModal = ({ itemTypes, servers, onSubmit, onClose }) => {
-  const [formData, setFormData] = useState({
-    itemName: '',
-    itemType: '',
-    itemQuantity: 0,
-    saleDuration: 12,
-    server: '',
-    price: 0
-  });
-
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: name === 'saleDuration' ? parseInt(value, 10) : value
-    }));
-  };
-
+const AddItemModal = ({ itemTypes, servers, onSubmit, onClose, formData, onFormChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData); // Passa o formData para a função onSubmit
+
+   
+    const { itemName, itemType, price } = formData;
+    if (!itemName || !itemType || !price || isNaN(price)) {
+      console.error('Erro: Campos obrigatórios estão faltando ou são inválidos.');
+      return;
+    }
+
+    console.log('Dados enviados para criação:', formData);
+    
+    onSubmit();
   };
 
   return (
@@ -34,7 +27,7 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose }) => {
               type="text"
               name="itemName"
               value={formData.itemName}
-              onChange={handleFormChange}
+              onChange={onFormChange}
               required
             />
           </label>
@@ -43,7 +36,7 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose }) => {
             <select
               name="itemType"
               value={formData.itemType}
-              onChange={handleFormChange}
+              onChange={onFormChange}
               required
             >
               <option value="">Selecione o tipo</option>
@@ -58,7 +51,7 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose }) => {
               type="number"
               name="itemQuantity"
               value={formData.itemQuantity}
-              onChange={handleFormChange}
+              onChange={onFormChange}
               required
               min="1"
               step="1"
@@ -69,7 +62,7 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose }) => {
             <select
               name="saleDuration"
               value={formData.saleDuration}
-              onChange={handleFormChange}
+              onChange={onFormChange} 
               required
             >
               <option value="12">12 horas</option>
@@ -82,7 +75,7 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose }) => {
             <select
               name="server"
               value={formData.server}
-              onChange={handleFormChange}
+              onChange={onFormChange} 
               required
             >
               <option value="">Selecione o servidor</option>
@@ -97,7 +90,7 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose }) => {
               type="number"
               name="price"
               value={formData.price}
-              onChange={handleFormChange}
+              onChange={onFormChange} 
               required
               min="0"
               step="0.01"

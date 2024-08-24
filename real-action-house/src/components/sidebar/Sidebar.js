@@ -1,6 +1,7 @@
 import React from 'react';
+import '../sidebar/Sidebar.css';  
 
-const Sidebar = ({ user }) => (
+const Sidebar = ({ user, onLogout }) => (
   <aside className="sidebar">
     <h2>Perfil do Usuário</h2>
     <p><strong>Nome:</strong> {user.name}</p>
@@ -14,6 +15,7 @@ const Sidebar = ({ user }) => (
         <li><a href="/settings">Configurações</a></li>
       </ul>
     </nav>
+    <button className="logout-button" onClick={onLogout}>Sair</button>
   </aside>
 );
 

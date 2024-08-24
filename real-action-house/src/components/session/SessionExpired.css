@@ -1,0 +1,30 @@
+.session-expired-container {
+    text-align: center;
+    padding: 50px;
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  
+  .session-expired-container h1 {
+    font-size: 2rem;
+  }
+  
+  .session-expired-container p {
+    font-size: 1.2rem;
+  }
+  
+  .session-expired-container .login-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
+  .session-expired-container .login-link:hover {
+    background-color: #0056b3;
+  }
+  

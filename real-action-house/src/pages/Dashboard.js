@@ -1,137 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import '../styles/Dashboard.css';
-import goblinAvatar from '../img/goblin_avatar.png'; // Verifique se o caminho está correto
-import Sidebar from '../components/Sidebar';
-import ItemsTable from '../components/ItemsTable';
-import AddItemModal from '../components/AddItemModal';
+import goblinAvatar from '../img/goblin_avatar.png';
+import Sidebar from '../components/sidebar/Sidebar';
+import ItemsTable from '../components/ItemTable/ItemsTable';
+import AddItemModal from '../components/itemModal/AddItemModal';
+import DashboardHeader from '../components/dashboardHeader/DashboardHeader';
+import TableHeader from '../components/ahTableHeader/AhTableHeader';
+import { useDashboardData, useDashboardActions } from '../hooks/useDashboard';
 import useFetchData from '../hooks/useFetchData';
+import { useAuth } from '../auth/useAuth'; 
 
 function Dashboard() {
-  const [items, setItems] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [user, setUser] = useState({
-    name: 'Nome do Usuário',
-    email: 'usuario@example.com',
-    accountType: 'Standard',
-    balance: 1000.0
-  });
-
-  const [itemTypes, setItemTypes] = useState([]);
-  const [servers, setServers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     itemName: '',
     itemType: '',
+    itemQuantity: 0,
     saleDuration: 12,
     server: '',
     price: 0
   });
 
-  const { fetchItems, fetchItemsByName, fetchItemTypes, fetchServers, fetchUserDetails } = useFetchData();
+  const { fetchItems, fetchItemsByName, fetchItemTypes, fetchServers, fetchUserDetails, handleItemPurchase, handleItemCreation } = useFetchData();
+  const { items, itemTypes, servers, user, setItems } = useDashboardData(fetchItems, fetchItemTypes, fetchServers, fetchUserDetails);
+  const { handleSearch, handleAction, handleSubmit } = useDashboardActions({ fetchItemsByName, handleItemPurchase, handleItemCreation });
 
-  useEffect(() => {
-    let isMounted = true;
+  const { logout } = useAuth(); 
 
-    const fetchData = async () => {
-      try {
-        const itemsResponse = await fetchItems();
-        if (isMounted) setItems(itemsResponse.data);
+  const onSearchChange = (e) => setSearchTerm(e.target.value);
 
-        const itemTypesResponse = await fetchItemTypes();
-        if (isMounted) {
-          setItemTypes(itemTypesResponse.data.itemTypes || []);
-        }
-
-        const serversResponse = await fetchServers();
-        if (isMounted) {
-          setServers(serversResponse.data.servers || []);
-        }
-
-        const userResponse = await fetchUserDetails();
-        if (isMounted) setUser(userResponse.data);
-      } catch (error) {
-        console.error('Erro ao buscar dados:', error.response ? error.response.data : error.message);
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [fetchItems, fetchItemTypes, fetchServers, fetchUserDetails]);
-
-  const handleSearch = async () => {
-    try {
-      const response = await fetchItemsByName(searchTerm);
-      setItems(response.data);
-    } catch (error) {
-      console.error('Erro ao buscar itens:', error.response ? error.response.data : error.message);
-    }
-  };
-
-  const handleAction = async (itemId) => {
-    const confirmPurchase = window.confirm('Você tem certeza que deseja comprar este item?');
-    if (confirmPurchase) {
-      try {
-        await axios.post('http://localhost:3001/api/v1/buy-item',{ itemId }, {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-        });
-        alert('Item comprado com sucesso!');
-      } catch (error) {
-        console.error('Erro ao comprar item:', error.response ? error.response.data : error.message);
-      }
-    }
-  };
-
-  const handleFormChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = async (formData) => {
-    try {
-      await axios.post('http://localhost:3001/api/v1/items', formData, {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
-      alert('Item adicionado para venda com sucesso!');
-      setShowModal(false);
-    } catch (error) {
-      console.error('Erro ao adicionar item:', error.response ? error.response.data : error.message);
-    }
+  const handleLogout = () => {
+    logout(); 
   };
 
   return (
     <div className="dashboard-container">
-      <header className="dashboard-header">
-        <h1>Real Action House</h1>
-      </header>
+      <DashboardHeader />
       <div className="dashboard-body">
-        <Sidebar user={user} />
+        <Sidebar user={user} onLogout={handleLogout} />
         <main className="main-content">
-          <div className="table-header">
-            <img src={goblinAvatar} alt="Goblin Avatar" className="goblin-avatar" />
-            <input
-              type="text"
-              placeholder="Buscar item..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-input"
-            />
-            <button onClick={handleSearch} className="search-button">Pesquisar</button>
-            <button onClick={() => setShowModal(true)} className="sell-button">Vender Item</button>
-          </div>
+          <TableHeader
+            goblinAvatar={goblinAvatar}
+            searchTerm={searchTerm}
+            onSearchChange={onSearchChange}
+            onSearch={() => handleSearch(searchTerm, setItems)}
+            onSell={() => setShowModal(true)}
+          />
           <ItemsTable items={items} onAction={handleAction} />
           {showModal && (
-            <AddItemModal
-              itemTypes={itemTypes}
-              servers={servers}
-              onSubmit={handleSubmit}
-              onClose={() => setShowModal(false)}
-              formData={formData}
-              onFormChange={handleFormChange}
-            />
+           <AddItemModal
+             itemTypes={itemTypes}
+             servers={servers}
+             onSubmit={() => handleSubmit(formData, setShowModal)}
+             onClose={() => setShowModal(false)}
+             formData={formData} 
+             onFormChange={(e) => setFormData({ ...formData, [e.target.name]: e.target.value })}
+           />
           )}
         </main>
       </div>

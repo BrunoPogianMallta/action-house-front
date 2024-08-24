@@ -1,0 +1,35 @@
+.modal-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.modal {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    max-width: 90%;
+    position: relative;
+}
+
+.modal h2 {
+    margin-top: 0;
+}
+
+
+.modal button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: none;
+    background-color: #070707;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.modal button:hover {
+    background-color: #0056b3;
+}

@@ -19,27 +19,8 @@
     flex: 1;
   }
   
-  /* Sidebar */
-  .sidebar {
-    width: 250px;
-    background-color: #f4f4f4;
-    padding: 15px;
-  }
+ 
   
-  /* Navegação da Sidebar */
-  .sidebar-nav ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .sidebar-nav li {
-    margin-bottom: 10px;
-  }
-  
-  .sidebar-nav a {
-    text-decoration: none;
-    color: #333;
-  }
   
   /* Conteúdo principal */
   .main-content {
@@ -78,14 +59,14 @@
     padding: 8px 16px;
     font-size: 16px;
     border: none;
-    background-color: #007bff;
+    background-color: #070707;
     color: #fff;
     border-radius: 4px;
     cursor: pointer;
   }
   
   .search-button:hover {
-    background-color: #0056b3;
+    background-color: #383737;
   }
   
   /* Botão de Vender */
@@ -95,14 +76,14 @@
     margin-left: 10px;
     font-size: 16px;
     border: none;
-    background-color: #007bff;
+    background-color: #030303;
     color: #fff;
     border-radius: 4px;
     cursor: pointer;
   }
   
   .sell-button:hover {
-    background-color: #0056b3;
+    background-color: #383737;
   }
   
   /* Tabela de Itens */
@@ -134,7 +115,7 @@
   }
   
   /* Estilos do Modal */
- /* Estilos para o Modal de Venda */
+ 
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -145,7 +126,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* Coloca o modal sobre outros elementos */
+    z-index: 1000; 
 }
 
 .modal-content {
@@ -178,7 +159,7 @@
 }
 
 .modal-content button {
-    background: #007bff;
+    background: #000000;
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -207,16 +188,3 @@
     cursor: pointer;
 }
 
-.logout-button {
-  background-color: red; /* Cor de fundo para visibilidade */
-  color: white; /* Cor do texto */
-  border: none; /* Remove bordas */
-  padding: 10px 20px; /* Adiciona espaçamento */
-  cursor: pointer; /* Muda o cursor para indicar clicável */
-  margin-top: 20px; /* Espaço acima do botão */
-  border-radius: 5px; /* Borda arredondada */
-}
-
-.logout-button:hover {
-  background-color: darkred; /* Cor ao passar o mouse */
-}

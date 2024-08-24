@@ -2,8 +2,7 @@ import React, { useEffect } from 'react';
 
 const ItemsTable = ({ items, onAction }) => {
   useEffect(() => {
-    console.log('Items being displayed:', items);
-  }, [items]); // Log only when items change
+  }, [items]); 
 
   return (
     <table className="items-table">

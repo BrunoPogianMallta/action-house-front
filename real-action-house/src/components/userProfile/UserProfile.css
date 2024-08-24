@@ -1,0 +1,17 @@
+.user-profile-container {
+    padding: 20px;
+  }
+  
+  .logout-button {
+    background-color: red; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    cursor: pointer; 
+    margin-top: 20px; 
+    border-radius: 5px; 
+  }
+  
+  .logout-button:hover {
+    background-color: darkred; 
+}

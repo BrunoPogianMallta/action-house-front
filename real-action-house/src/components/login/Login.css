@@ -1,12 +1,11 @@
-/* Login.css */
-
 .login-container {
     max-width: 400px;
     margin: auto;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    background-color: #fff;
+    background-color: #f0f2f5;
+    color: #333;
   }
   
   .login-form .form-group {
@@ -21,7 +20,7 @@
   }
   
   .submit-button {
-    background-color: #007bff;
+    background-color: #030303;
     color: #fff;
     border: none;
     padding: 10px 15px;
@@ -30,7 +29,7 @@
   }
   
   .submit-button:hover {
-    background-color: #0056b3;
+    background-color: #050505;
   }
   
   .message {

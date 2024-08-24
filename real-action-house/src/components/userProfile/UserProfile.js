@@ -1,14 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './UserProfile.css'; // Importe o CSS
+import './UserProfile.css'; 
 
 function UserProfile({ user }) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Remover token do localStorage
+    
     localStorage.removeItem('token');
-    // Redirecionar para a página de login
+    
     navigate('/');
   };
 
