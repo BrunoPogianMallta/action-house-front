@@ -14,19 +14,12 @@ function App() {
         <Route path="/" element={<HomePage />} /> {/* Página inicial não protegida */}
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/session-expired" element={<SessionExpired />} />
+        <Route  path="/auction-house" element={<AuctionHouse />} />
         <Route 
           path="/dashboard" 
           element={
             <ProtectedRoute
               element={<Dashboard />}
-            />
-          } 
-        />
-        <Route 
-          path="/auction-house" 
-          element={
-            <ProtectedRoute
-              element={<AuctionHouse />}
             />
           } 
         />

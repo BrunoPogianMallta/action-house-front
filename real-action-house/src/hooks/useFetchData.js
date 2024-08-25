@@ -78,8 +78,15 @@ const useFetchData = () => {
   }, []);
 
   const handleItemCreation = useCallback(async (formData) => {
+    const { saleDuration } = formData;
+
+    const allowedDurations = [12, 24, 48];
+    if (!allowedDurations.includes(saleDuration)) {
+      console.error('Duração da venda inválida:', saleDuration);
+      return;
+    }
+
     try {
-     
       console.log('Enviando dados para criação do item:', formData);
       const response = await axios.post(`${API_URL}/items`, formData, {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('authToken')}` }
