@@ -1,11 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 import LoginForm from './LoginForm';
 import LoginMessage from './LoginMessage';
 import useLogin from '../../hooks/useLogin';
+import ResetPasswordModal from '../resetPassword/ResetPasswordModal';
 import './Login.css';
 
 const Login = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const {
     email,
     password,
@@ -15,6 +17,9 @@ const Login = () => {
     message,
     error,
   } = useLogin();
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   return (
     <div className="login-container">
@@ -28,9 +33,12 @@ const Login = () => {
       />
       <LoginMessage message={message} error={error} />
       <div className="links-container">
-        <Link to="/register" className="link">Cadastrar-se</Link>
-        <Link to="/reset-password" className="link">Esqueci minha senha</Link>
+        <span onClick={openModal} className="reset-password-link">Esqueci minha senha</span>
       </div>
+      <ResetPasswordModal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+      />
     </div>
   );
 };

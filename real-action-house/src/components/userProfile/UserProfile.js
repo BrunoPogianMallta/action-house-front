@@ -19,13 +19,13 @@ function UserProfile({ user }) {
       <p><strong>Email:</strong> {user.email}</p>
       <p><strong>Tipo de Conta:</strong> {user.accountType}</p>
       <p><strong>Saldo:</strong> ${user.balance.toFixed(2)}</p>
-      <nav className="sidebar-nav">
+      {/* <nav className="sidebar-nav">
         <ul>
           <li><a href="/profile">Perfil</a></li>
           <li><a href="/items">Itens</a></li>
           <li><a href="/settings">Configurações</a></li>
         </ul>
-      </nav>
+      </nav> */}
       <button className="logout-button" onClick={handleLogout}>
         Sair
       </button>

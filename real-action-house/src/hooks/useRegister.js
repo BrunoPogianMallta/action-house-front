@@ -1,32 +1,36 @@
-import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from '../config'; 
+import useFormFields from './useFormFields';
+import useMessage from './useMessage';
+import { validatePasswordMatch } from '../utils/validation';
 
 const useRegister = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { message, setMessage, error, setError } = useMessage();
+  const [fields, handleFieldChange] = useFormFields({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
     setError('');
 
-    if (password !== confirmPassword) {
-      setError('As senhas não coincidem.');
+    const validationError = validatePasswordMatch(fields.password, fields.confirmPassword);
+    if (validationError) {
+      setError(validationError);
       return;
     }
 
     try {
       const response = await axios.post(`${API_URL}/register`, {
-        name,
-        email,
-        password,
+        name: fields.name,
+        email: fields.email,
+        password: fields.password,
       });
 
       if (response.data.success) {
@@ -45,14 +49,8 @@ const useRegister = () => {
   };
 
   return {
-    name,
-    email,
-    password,
-    confirmPassword,
-    setName,
-    setEmail,
-    setPassword,
-    setConfirmPassword,
+    fields,
+    handleFieldChange,
     handleSubmit,
     message,
     error,

@@ -4,14 +4,8 @@ import '../register/Register.css';
 
 const Register = () => {
   const {
-    name,
-    email,
-    password,
-    confirmPassword,
-    setName,
-    setEmail,
-    setPassword,
-    setConfirmPassword,
+    fields, 
+    handleFieldChange, 
     handleSubmit,
     message,
     error,
@@ -26,8 +20,8 @@ const Register = () => {
             id="name"
             type="text"
             name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={fields.name}
+            onChange={handleFieldChange}
             required
             className="form-control"
           />
@@ -38,8 +32,8 @@ const Register = () => {
             id="email"
             type="email"
             name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={fields.email}
+            onChange={handleFieldChange}
             required
             className="form-control"
           />
@@ -50,8 +44,8 @@ const Register = () => {
             id="password"
             type="password"
             name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={fields.password}
+            onChange={handleFieldChange}
             required
             className="form-control"
           />
@@ -62,8 +56,8 @@ const Register = () => {
             id="confirmPassword"
             type="password"
             name="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={fields.confirmPassword}
+            onChange={handleFieldChange}
             required
             className="form-control"
           />

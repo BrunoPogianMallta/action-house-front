@@ -67,7 +67,7 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose, formData, onFormC
             >
               <option value="12">12 horas</option>
               <option value="24">24 horas</option>
-              <option value="48">48 horas</option>
+              <option value="48">48 horas</option> 
             </select>
           </label>
           <label>
