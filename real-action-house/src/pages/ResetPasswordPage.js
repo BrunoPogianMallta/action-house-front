@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import './ResetPasswordPage.css'; // Certifique-se de que o caminho está correto
+import { API_URL } from '../config';
+import './ResetPasswordPage.css'; 
 
 const ResetPasswordPage = ({ token }) => {
   const [newPassword, setNewPassword] = useState('');
@@ -20,7 +21,7 @@ const ResetPasswordPage = ({ token }) => {
       console.log('Token:', token); // Verifica o token
       console.log('Nova Senha:', newPassword); // Verifica a nova senha
   
-      const response = await fetch('http://localhost:3001/api/v1/reset-password', {
+      const response = await fetch(`${API_URL}/reset-password`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

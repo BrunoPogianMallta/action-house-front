@@ -1,11 +1,10 @@
-/* Container principal do Dashboard */
 .dashboard-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
   }
   
-  /* Cabeçalho do Dashboard */
+  
   .dashboard-header {
     background-color: #333;
     color: #fff;
@@ -13,16 +12,12 @@
     text-align: center;
   }
   
-  /* Corpo do Dashboard */
+ 
   .dashboard-body {
     display: flex;
     flex: 1;
   }
   
- 
-  
-  
-  /* Conteúdo principal */
   .main-content {
     flex: 1;
     padding: 15px;
