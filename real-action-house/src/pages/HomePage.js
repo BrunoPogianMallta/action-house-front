@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './HomePage.css';
 import LoginModal from '../components/login/LoginModal';
 import RegisterModal from '../components/register/RegisterModal';
-import Footer from '../components/footer/Footer';
+
 
 const HomePage = () => {
   const [isLoginModalOpen, setLoginModalOpen] = useState(false);
@@ -52,7 +52,7 @@ const HomePage = () => {
         onRequestClose={closeRegisterModal}
       />
 
-      <Footer />
+      
     </div>
   );
 };
