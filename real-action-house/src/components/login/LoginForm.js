@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const LoginForm = ({ email, password, setEmail, setPassword, handleSubmit }) => (
-  <form onSubmit={handleSubmit} className="login-form">
-    <div className="form-group">
-      <label htmlFor="email">Email:</label>
+  <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6 w-full max-w-sm">
+    <div className="mb-4">
+      <label htmlFor="email" className="block text-sm font-bold mb-2">Email:</label>
       <input
         id="email"
         type="email"
@@ -12,11 +12,11 @@ const LoginForm = ({ email, password, setEmail, setPassword, handleSubmit }) => 
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        className="form-control"
+        className="border border-gray-300 rounded-lg p-2 w-full"
       />
     </div>
-    <div className="form-group">
-      <label htmlFor="password">Senha:</label>
+    <div className="mb-4">
+      <label htmlFor="password" className="block text-sm font-bold mb-2">Senha:</label>
       <input
         id="password"
         type="password"
@@ -24,10 +24,12 @@ const LoginForm = ({ email, password, setEmail, setPassword, handleSubmit }) => 
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
-        className="form-control"
+        className="border border-gray-300 rounded-lg p-2 w-full"
       />
     </div>
-    <button type="submit" className="submit-button">Login</button>
+    <button type="submit" className="bg-black text-white rounded-lg py-2 px-4 w-full hover:bg-gray-800">
+      Login
+    </button>
   </form>
 );
 

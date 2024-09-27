@@ -1,6 +1,5 @@
 import React from 'react';
 import useRegister from '../../hooks/useRegister'; 
-import '../register/Register.css';
 
 const Register = () => {
   const {
@@ -12,10 +11,10 @@ const Register = () => {
   } = useRegister();
 
   return (
-    <div className="register-container">
-      <form onSubmit={handleSubmit} className="register-form">
+    <div className="register-container p-6 bg-gray-100 rounded-lg shadow-md">
+      <form onSubmit={handleSubmit} className="register-form space-y-4">
         <div className="form-group">
-          <label htmlFor="name">Nome:</label>
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nome:</label>
           <input
             id="name"
             type="text"
@@ -23,11 +22,11 @@ const Register = () => {
             value={fields.name}
             onChange={handleFieldChange}
             required
-            className="form-control"
+            className="form-control w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email:</label>
           <input
             id="email"
             type="email"
@@ -35,11 +34,11 @@ const Register = () => {
             value={fields.email}
             onChange={handleFieldChange}
             required
-            className="form-control"
+            className="form-control w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="password">Senha:</label>
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">Senha:</label>
           <input
             id="password"
             type="password"
@@ -47,11 +46,11 @@ const Register = () => {
             value={fields.password}
             onChange={handleFieldChange}
             required
-            className="form-control"
+            className="form-control w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="confirmPassword">Confirmar Senha:</label>
+          <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">Confirmar Senha:</label>
           <input
             id="confirmPassword"
             type="password"
@@ -59,13 +58,13 @@ const Register = () => {
             value={fields.confirmPassword}
             onChange={handleFieldChange}
             required
-            className="form-control"
+            className="form-control w-full p-2 border border-gray-300 rounded-md"
           />
         </div>
-        <button type="submit" className="submit-button">Cadastrar</button>
+        <button type="submit" className="submit-button w-full bg-gray-800 text-white font-semibold py-2 rounded-md hover:bg-gray-700 transition duration-200">Cadastrar</button>
       </form>
-      {message && <p className="message success">{message}</p>}
-      {error && <p className="message error">{error}</p>}
+      {message && <p className="message text-green-600 mt-4">{message}</p>}
+      {error && <p className="message text-red-600 mt-4">{error}</p>}
     </div>
   );
 }

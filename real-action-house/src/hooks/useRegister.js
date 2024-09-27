@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axiosInstance from '../auth/axiosInstance'; 
 import { useNavigate } from 'react-router-dom';
-import { API_URL } from '../config'; 
 import useFormFields from './useFormFields';
 import useMessage from './useMessage';
 import { validatePasswordMatch } from '../utils/validation';
+import { useAuth } from '../auth/useAuth'; 
 
 const useRegister = () => {
   const navigate = useNavigate();
@@ -15,6 +15,8 @@ const useRegister = () => {
     confirmPassword: ''
   });
 
+  const { login } = useAuth(); 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
@@ -22,25 +24,45 @@ const useRegister = () => {
 
     const validationError = validatePasswordMatch(fields.password, fields.confirmPassword);
     if (validationError) {
+      console.log('Validation Error:', validationError);
       setError(validationError);
       return;
     }
 
     try {
-      const response = await axios.post(`${API_URL}/register`, {
+      const response = await axiosInstance.post('/register', {
         name: fields.name,
         email: fields.email,
         password: fields.password,
       });
+    
+      console.log('Registro Response:', response.data);
+    
+      if (response.data.message === 'Usuário registrado com sucesso!') {
+        const loginResponse = await axiosInstance.post('/login', {
+          email: fields.email,
+          password: fields.password,
+        });
+    
+        console.log('Login Response:', loginResponse.data);
+    
+        if (loginResponse.data.token) {
+          login(loginResponse.data.token, loginResponse.data.user);
+          console.log('Login bem-sucedido. Redirecionando para o dashboard...');
+          setMessage('Cadastro e login bem-sucedidos! Você será redirecionado.');
 
-      if (response.data.success) {
-        setMessage('Cadastro bem-sucedido! Você será redirecionado.');
-        navigate('/login');
+        } else {
+          console.log('Falha ao logar após cadastro.');
+          setMessage('Cadastro bem-sucedido, mas falha ao logar.');
+        }
       } else {
-        setMessage('Cadastro bem-sucedido!');
+        console.log('Erro ao cadastrar:', response.data.message); 
+        setMessage('Erro ao cadastrar.'); 
       }
     } catch (error) {
+      console.error('Erro no bloco catch:', error);
       if (error.response) {
+        console.error('Erro de resposta da API:', error.response);
         setError(error.response.data.message || 'Erro ao cadastrar.');
       } else {
         setError('Erro de rede. Tente novamente mais tarde.');

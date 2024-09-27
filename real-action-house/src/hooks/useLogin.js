@@ -1,60 +1,66 @@
-// src/hooks/useLogin.js
 import { useState } from 'react';
-import axios from 'axios';
-import { useAuth } from '../auth/useAuth'; 
-import { API_URL } from '../config';
-
+import axiosInstance from '../auth/axiosInstance';
+import { useAuth } from '../auth/useAuth';
 
 const useLogin = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
-  const { login } = useAuth(); 
+  const { login } = useAuth();
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setCredentials((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const validateForm = () => {
+    if (!credentials.email || !credentials.password) {
+      setError('Todos os campos são obrigatórios.');
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
     setError('');
 
-    if (!email || !password) {
-      setError('Todos os campos são obrigatórios.');
-      return;
-    }
+    if (!validateForm()) return;
 
     try {
-      const response = await axios.post(`${API_URL}/login`, { email, password });
-      const { token, user } = response.data;
+      const { data: { token, user } } = await axiosInstance.post('/login', credentials);
 
-      if (token) {
-        login(token, user); 
-        setMessage('Login bem-sucedido! Você será redirecionado.');
-      } else {
-        setMessage('Login bem-sucedido!');
+      if (!token) {
+        throw new Error('Token não recebido.');
       }
+
+      setMessage('Login bem-sucedido! Você será redirecionado.');
+      login(token, user);  // Executa o login após a mensagem
     } catch (error) {
-      if (error.response) {
-        switch (error.response.status) {
-          case 400:
-            setError('Dados fornecidos são inválidos. Verifique o email e a senha.');
-            break;
-          case 401:
-            setError('Email ou senha incorretos. Verifique suas credenciais e tente novamente.');
-            break;
-          default:
-            setError(error.response.data.message || 'Erro ao fazer login.');
-        }
-      } else {
-        setError('Erro de rede. Tente novamente mais tarde.');
-      }
+      handleLoginError(error);
+    }
+  };
+
+  const handleLoginError = (error) => {
+    if (error.response) {
+      const { status, data } = error.response;
+      const errorMessage = {
+        400: 'Dados fornecidos são inválidos. Verifique o email e a senha.',
+        401: 'Email ou senha incorretos. Verifique suas credenciais e tente novamente.',
+      };
+
+      setError(errorMessage[status] || data.message || 'Erro ao fazer login.');
+    } else {
+      setError(error.message || 'Erro de rede. Tente novamente mais tarde.');
     }
   };
 
   return {
-    email,
-    password,
-    setEmail,
-    setPassword,
+    ...credentials,
+    setEmail: (email) => setCredentials((prev) => ({ ...prev, email })),
+    setPassword: (password) => setCredentials((prev) => ({ ...prev, password })),
+    handleInputChange,
     handleSubmit,
     message,
     error,

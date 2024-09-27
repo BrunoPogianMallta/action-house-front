@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { API_URL } from '../config'; 
+import axiosInstance from '../auth/axiosInstance'; 
 
 const useResetPassword = () => {
   const [email, setEmail] = useState('');
@@ -17,21 +17,15 @@ const useResetPassword = () => {
     setError(null);
 
     try {
-      const response = await fetch(`${API_URL}/request-password-reset`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await axiosInstance.post('/request-password-reset', { email });
 
-      if (!response.ok) {
+      if (response.status !== 200) {
         throw new Error('Erro ao enviar o link de recuperação de senha.');
       }
 
       setSuccess(true);
     } catch (error) {
-      setError(error.message);
+      setError(error.response?.data?.error || error.message || 'Erro desconhecido');
     } finally {
       setLoading(false);
     }

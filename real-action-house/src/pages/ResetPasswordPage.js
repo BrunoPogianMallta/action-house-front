@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { API_URL } from '../config';
+import axiosInstance from '../auth/axiosInstance'; 
 import './ResetPasswordPage.css'; 
 
 const ResetPasswordPage = ({ token }) => {
@@ -18,26 +18,18 @@ const ResetPasswordPage = ({ token }) => {
     setError(null);
   
     try {
-      console.log('Token:', token); // Verifica o token
-      console.log('Nova Senha:', newPassword); // Verifica a nova senha
-  
-      const response = await fetch(`${API_URL}/reset-password`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token, newPassword }), // Formata o corpo da requisição
+      console.log('Token:', token); 
+      console.log('Nova Senha:', newPassword); 
+
+      const response = await axiosInstance.post('/reset-password', {
+        token, 
+        newPassword,
       });
       
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Erro ao redefinir a senha.');
-      }
-  
       setSuccess(true);
     } catch (error) {
-      console.error('Erro ao redefinir a senha:', error);
-      setError(error.message);
+      console.error('Erro ao redefinir a senha:', error.response ? error.response.data : error);
+      setError(error.response ? error.response.data.error : 'Erro ao redefinir a senha.');
     } finally {
       setLoading(false);
     }
