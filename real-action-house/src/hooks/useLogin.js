@@ -2,10 +2,12 @@ import { useState } from 'react';
 import axiosInstance from '../auth/axiosInstance';
 import { useAuth } from '../auth/useAuth';
 
+
 const useLogin = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' });
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); 
   const { login } = useAuth();
 
   const handleInputChange = (e) => {
@@ -28,6 +30,8 @@ const useLogin = () => {
 
     if (!validateForm()) return;
 
+    setLoading(true); 
+
     try {
       const { data: { token, user } } = await axiosInstance.post('/login', credentials);
 
@@ -36,9 +40,11 @@ const useLogin = () => {
       }
 
       setMessage('Login bem-sucedido! Você será redirecionado.');
-      login(token, user);  // Executa o login após a mensagem
+      login(token, user);  
     } catch (error) {
       handleLoginError(error);
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -64,6 +70,7 @@ const useLogin = () => {
     handleSubmit,
     message,
     error,
+    loading, 
   };
 };
 

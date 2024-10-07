@@ -4,16 +4,28 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose, formData, onFormC
   const handleSubmit = (e) => {
     e.preventDefault();
 
-   
-    const { itemName, itemType, price } = formData;
-    if (!itemName || !itemType || !price || isNaN(price)) {
+    
+    const { itemName, itemType, itemQuantity, saleDuration, server, price } = formData;
+
+    
+    const saleDurationNumber = parseInt(saleDuration, 10);
+
+    if (!itemName || !itemType || !itemQuantity || isNaN(saleDurationNumber) || !server || !price || isNaN(price)) {
       console.error('Erro: Campos obrigatórios estão faltando ou são inválidos.');
+      alert('Por favor, preencha todos os campos obrigatórios corretamente.');
       return;
     }
 
-    console.log('Dados enviados para criação:', formData);
     
-    onSubmit();
+    onSubmit({
+      ...formData,
+      saleDuration: saleDurationNumber, 
+    });
+
+    console.log('Dados enviados para criação:', {
+      ...formData,
+      saleDuration: saleDurationNumber,
+    });
   };
 
   return (
@@ -65,6 +77,7 @@ const AddItemModal = ({ itemTypes, servers, onSubmit, onClose, formData, onFormC
               onChange={onFormChange} 
               required
             >
+              <option value="">Selecione a duração</option>
               <option value="12">12 horas</option>
               <option value="24">24 horas</option>
               <option value="48">48 horas</option> 

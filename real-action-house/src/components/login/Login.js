@@ -16,6 +16,7 @@ const Login = () => {
     handleSubmit,
     message,
     error,
+    loading, 
   } = useLogin();
 
   const openModal = () => setIsModalOpen(true);
@@ -30,6 +31,7 @@ const Login = () => {
         setEmail={setEmail}
         setPassword={setPassword}
         handleSubmit={handleSubmit}
+        loading={loading} 
       />
       <LoginMessage message={message} error={error} />
       <div className="links-container">

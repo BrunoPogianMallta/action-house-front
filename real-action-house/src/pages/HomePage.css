@@ -24,13 +24,18 @@
 }
 
 .home-page-header {
-    margin-bottom: 40px;
+    margin-bottom: 10%;
 }
+
+   
 
 .home-page-header h1 {
     font-size: 2.5rem;
     margin-bottom: 10px;
     color: #0b0c0c;
+}
+.header h1{
+    font-size: 3.5rem;
 }
 
 .home-page-header p {
@@ -59,17 +64,17 @@
 
 .card h2 {
     font-size: 1.5rem;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
 }
 
 .card p {
     font-size: 1rem;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 
 .card-link {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 8px 18px;
     font-size: 1rem;
     color: #fff;
     background-color: #080808;

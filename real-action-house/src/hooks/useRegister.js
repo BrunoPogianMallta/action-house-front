@@ -4,6 +4,7 @@ import useFormFields from './useFormFields';
 import useMessage from './useMessage';
 import { validatePasswordMatch } from '../utils/validation';
 import { useAuth } from '../auth/useAuth'; 
+import { useState } from 'react'; 
 
 const useRegister = () => {
   const navigate = useNavigate();
@@ -14,18 +15,21 @@ const useRegister = () => {
     password: '',
     confirmPassword: ''
   });
-
+  
   const { login } = useAuth(); 
+  const [loading, setLoading] = useState(false); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
     setError('');
+    setLoading(true); 
 
     const validationError = validatePasswordMatch(fields.password, fields.confirmPassword);
     if (validationError) {
       console.log('Validation Error:', validationError);
       setError(validationError);
+      setLoading(false); 
       return;
     }
 
@@ -67,6 +71,8 @@ const useRegister = () => {
       } else {
         setError('Erro de rede. Tente novamente mais tarde.');
       }
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -76,6 +82,7 @@ const useRegister = () => {
     handleSubmit,
     message,
     error,
+    loading, 
   };
 };
 
