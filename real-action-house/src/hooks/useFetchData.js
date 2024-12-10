@@ -80,7 +80,7 @@ const useFetchData = () => {
   const handleItemCreation = useCallback(async (formData) => {
     const { saleDuration } = formData;
 
-    const allowedDurations = [12, 24, 48];
+    const allowedDurations = ["12", "24", "48"];
     if (!allowedDurations.includes(saleDuration)) {
       console.error('Duração da venda inválida:', saleDuration);
       return;

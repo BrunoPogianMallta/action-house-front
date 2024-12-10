@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-import axiosInstance from '../auth/axiosInstance'; 
-import './ResetPasswordPage.css'; 
+import { useParams } from 'react-router-dom'; // Para acessar parâmetros da URL
+import axiosInstance from '../auth/axiosInstance';
+import './ResetPasswordPage.css';
 
-const ResetPasswordPage = ({ token }) => {
+const ResetPasswordPage = () => {
+  // Obtém o token da URL
+  const { token } = useParams(); 
+
   const [newPassword, setNewPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -16,16 +20,17 @@ const ResetPasswordPage = ({ token }) => {
     event.preventDefault();
     setLoading(true);
     setError(null);
-  
-    try {
-      console.log('Token:', token); 
-      console.log('Nova Senha:', newPassword); 
 
+    try {
+      console.log('Token:', token);
+      console.log('Nova Senha:', newPassword);
+
+      // Enviando o token e a nova senha para o backend
       const response = await axiosInstance.post('/reset-password', {
-        token, 
+        token,
         newPassword,
       });
-      
+
       setSuccess(true);
     } catch (error) {
       console.error('Erro ao redefinir a senha:', error.response ? error.response.data : error);

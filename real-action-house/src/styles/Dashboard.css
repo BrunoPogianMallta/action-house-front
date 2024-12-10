@@ -1,299 +1,467 @@
 .dashboard-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  
+  .dashboard-header {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .dashboard-header h1{
+    font-size: 30px;
+  }
+  
+ 
+  .dashboard-body {
+    display: flex;
+    flex: 1;
+  }
+  
+  .main-content {
+    flex: 1;
+    padding: 15px;
+  }
+  
+  /* Cabeçalho da Tabela */
+  .table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+  }
+  
+  /* Imagem do Goblin */
+  .goblin-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 16px;
+  }
+  
+  /* Campo de Pesquisa */
+  .search-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-size: 16px;
+  }
+  
+  /* Botão de Pesquisa */
+  .search-button {
+    padding: 8px 16px;
+    font-size: 16px;
+    border: none;
+    background-color: #070707;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .search-button:hover {
+    background-color: #383737;
+  }
+  
+  /* Botão de Vender */
+  .sell-button {
+    padding: 8px 16px;
+    /* margin-top: 16px; */
+    margin-left: 10px;
+    font-size: 16px;
+    border: none;
+    background-color: #030303;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .sell-button:hover {
+    background-color: #383737;
+  }
+  
+  /* Tabela de Itens */
+  .items-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .items-table th, .items-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .items-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .items-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .items-table .clickable-row {
+    cursor: pointer;
+  }
+  
+  .items-table .clickable-row:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Estilos do Modal */
+ 
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; 
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal-content button {
+    background: #000000;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.modal-content button:hover {
+    background: #030303;
+}
+
+.modal-content button:nth-child(2) {
+    background: #dc3545;
+}
+
+.modal-content button:nth-child(2):hover {
+    background: #c82333;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.dashboard-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  width: 100vw;
+  overflow: hidden; /* Evita que o conteúdo estoure do contêiner */
+ 
 }
-
-
-.dashboard-header {
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-}
-
-.dashboard-header h1{
-  font-size: 30px;
-}
-
 
 .dashboard-body {
   display: flex;
   flex: 1;
+  overflow: auto; /* Permite rolagem, se necessário */
 }
 
 .main-content {
   flex: 1;
   padding: 15px;
-}
-
-/* Cabeçalho da Tabela */
-.table-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 15px;
-}
-
-/* Imagem do Goblin */
-.goblin-avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-right: 16px;
-}
-
-/* Campo de Pesquisa */
-.search-input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-right: 8px;
-  font-size: 16px;
-}
-
-/* Botão de Pesquisa */
-.search-button {
-  padding: 8px 16px;
-  font-size: 16px;
-  border: none;
-  background-color: #070707;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.search-button:hover {
-  background-color: #383737;
-}
-
-/* Botão de Vender */
-.sell-button {
-  padding: 8px 16px;
-  /* margin-top: 16px; */
-  margin-left: 10px;
-  font-size: 16px;
-  border: none;
-  background-color: #030303;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.sell-button:hover {
-  background-color: #383737;
-}
-
-/* Tabela de Itens */
-.items-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.items-table th, .items-table td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-.items-table th {
-  background-color: #f4f4f4;
-}
-
-.items-table tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-.items-table .clickable-row {
-  cursor: pointer;
-}
-
-.items-table .clickable-row:hover {
-  background-color: #f5f5f5;
-}
-
-/* Estilos do Modal */
-
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000; 
-}
-
-.modal-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  position: relative;
-}
-
-.modal-content h2 {
-  margin-top: 0;
-}
-
-.modal-content label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.modal-content input,
-.modal-content select {
-  width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.modal-content button {
-  background: #000000;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.modal-content button:hover {
-  background: #030303;
-}
-
-.modal-content button:nth-child(2) {
-  background: #dc3545;
-}
-
-.modal-content button:nth-child(2):hover {
-  background: #c82333;
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.dashboard-container {
-display: flex;
-flex-direction: column;
-height: 100vh;
-width: 100vw;
-overflow: hidden; /* Evita que o conteúdo estoure do contêiner */
-border: 1px solid green;
-}
-
-.dashboard-body {
-display: flex;
-flex: 1;
-overflow: auto; /* Permite rolagem, se necessário */
-}
-
-.main-content {
-flex: 1;
-padding: 15px;
-overflow-x: auto; /* Evita estouro horizontal */
-box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
+  overflow-x: auto; /* Evita estouro horizontal */
+  box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
 }
 
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
-.dashboard-body {
-    flex-direction: column;
-}
+  .dashboard-body {
+      flex-direction: column;
+  }
 
-.main-content {
-    padding: 10px;
-}
+  .main-content {
+      padding: 10px;
+  }
 
-.table-header {
-    flex-direction: column; /* Ajusta o layout para colunas */
-    align-items: flex-start; /* Alinha os itens à esquerda */
-}
+  .table-header {
+      flex-direction: column; 
+      align-items: flex-start; 
+      padding: 20px;
+  }
 
-.search-input,
-.search-button,
-.sell-button {
-    width: 100%; /* Preenche a largura disponível */
-    margin: 5px 0;
-}
+  .search-input,
+  .search-button,
+  .sell-button {
+      width: 100%; /* Preenche a largura disponível */
+      margin: 5px 0;
+  }
 
-.items-table {
-    width: 100%; /* Garante que a tabela se ajuste ao contêiner */
-}
+  .items-table {
+      width: 100%; /* Garante que a tabela se ajuste ao contêiner */
+  }
 }     
 
 @media (max-width: 360px) {
-.dashboard-container {
-  padding: 0;
+  .dashboard-container {
+    padding: 0;
+  }
+
+  .dashboard-body {
+    flex-direction: column; /* Empilha os elementos em vez de mantê-los lado a lado */
+  }
+
+  .main-content {
+    padding: 10px; /* Reduz o espaçamento interno */
+    overflow-x: auto; /* Permite rolagem horizontal caso necessário */
+  }
+
+  .table-header {
+    flex-direction: column; /* Coloca os elementos um abaixo do outro */
+    align-items: flex-start; /* Alinha os itens à esquerda */
+    margin-bottom: 10px;
+    padding: 20px;
+  }
+
+  .goblin-avatar {
+    width: 60px; /* Reduz o tamanho do avatar */
+    height: 60px;
+    margin-bottom: 10px; /* Espaçamento entre o avatar e o restante */
+  }
+
+  .search-input {
+    width: 100%; /* Ajusta a largura para ocupar todo o espaço */
+    margin-bottom: 8px;
+  }
+
+  .search-button,
+  .sell-button {
+    width: 100%; /* Botões em tela cheia */
+    margin-bottom: 8px;
+  }
+
+  .items-table {
+    font-size: 12px; /* Reduz o tamanho da fonte para caber na tela */
+    width: 100%; /* Ajusta a largura da tabela */
+  }
+
+  .items-table th,
+  .items-table td {
+    padding: 5px; /* Reduz o espaçamento interno das células */
+  }
+
+  .modal-content {
+    width: 90%; /* Ajusta o modal para caber na tela menor */
+  }
+
+  .modal-content input,
+  .modal-content select {
+    font-size: 14px; /* Reduz o tamanho da fonte no modal */
+  }
+
+  .modal-content button {
+    font-size: 14px; /* Reduz o tamanho do texto dos botões */
+    padding: 8px; /* Ajusta o padding dos botões */
+  }
 }
 
-.dashboard-body {
-  flex-direction: column; /* Empilha os elementos em vez de mantê-los lado a lado */
+/* Tabela de Itens - Ajuste para dispositivos móveis */
+@media (max-width: 768px) {
+  .items-table {
+    width: 100%; /* Garante que a tabela se ajuste à largura do contêiner */
+    font-size: 14px; /* Reduz o tamanho da fonte */
+    border-spacing: 0; /* Remove espaçamento entre células */
+  }
+
+  .items-table th,
+  .items-table td {
+    padding: 8px; /* Reduz o padding das células */
+    text-align: center; /* Centraliza o conteúdo para melhor alinhamento */
+    white-space: nowrap; /* Impede quebra de texto em células */
+  }
+
+  .items-table th {
+    font-size: 12px; /* Tamanho menor para os cabeçalhos */
+    background-color: #f4f4f4; /* Mantém contraste para melhor visibilidade */
+  }
+
+  .items-table td {
+    font-size: 12px; /* Reduz ainda mais o tamanho do texto das células */
+    overflow: hidden; /* Garante que o texto não exceda os limites */
+    text-overflow: ellipsis; /* Adiciona "..." se o texto for longo demais */
+  }
+
+  .items-table tr {
+    display: table-row; /* Mantém o formato de tabela */
+    width: 100%; /* Cada linha ocupa a largura total */
+  }
 }
 
-.main-content {
-  padding: 10px; /* Reduz o espaçamento interno */
-  overflow-x: auto; /* Permite rolagem horizontal caso necessário */
+@media (max-width: 360px) {
+  .items-table {
+    font-size: 18px; /* Fonte ainda menor para telas muito pequenas */
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .items-table th,
+  .items-table td {
+    padding: 4px; /* Padding reduzido para economizar espaço */
+  }
+
+  .items-table th {
+    font-size: 10px; /* Tamanho menor ainda para os cabeçalhos */
+  }
+
+  .items-table td {
+    font-size: 10px; /* Tamanho menor para o conteúdo */
+  }
 }
 
-.table-header {
-  flex-direction: column; /* Coloca os elementos um abaixo do outro */
-  align-items: flex-start; /* Alinha os itens à esquerda */
-  margin-bottom: 10px;
+
+/* Estilos do Modal - Responsivo para dispositivos móveis */
+@media (max-width: 768px) {
+  .modal-content {
+    width: 80%; /* Reduz a largura do modal para se ajustar a telas médias */
+    padding: 15px; /* Ajusta o padding interno para telas menores */
+  }
+
+  .modal-content input,
+  .modal-content select {
+    font-size: 14px; /* Diminui o tamanho da fonte para dispositivos menores */
+    padding: 10px; /* Aumenta o padding dos campos para melhorar a usabilidade */
+  }
+
+  .modal-content button {
+    font-size: 14px; /* Ajusta o tamanho da fonte nos botões */
+    padding: 12px; /* Aumenta o padding dos botões para melhor clique */
+  }
+
+  .modal-content button:nth-child(2) {
+    font-size: 14px; /* Ajuste no botão de 'Cancelar' */
+    padding: 12px; /* Ajuste no padding do botão */
+  }
+
+  /* Close button */
+  .close-button {
+    font-size: 22px; /* Reduz o tamanho do botão de fechar */
+    top: 8px; /* Ajuste da posição */
+    right: 8px; /* Ajuste da posição */
+  }
 }
 
-.goblin-avatar {
-  width: 60px; /* Reduz o tamanho do avatar */
-  height: 60px;
-  margin-bottom: 10px; /* Espaçamento entre o avatar e o restante */
+/* Ajustes para telas de 360x640 */
+@media (max-width: 360px) {
+  .modal-content {
+    width: 60%; /* Ajusta o modal para caber bem na tela */
+    max-height: 80%; /* Limita a altura para que o modal não ocupe toda a tela */
+    padding: 8px; /* Menos padding para dar mais espaço ao conteúdo */
+    box-sizing: border-box; /* Inclui o padding no cálculo da largura e altura */
+    overflow-y: auto; /* Adiciona rolagem vertical se necessário */
+  }
+
+  .modal-content h2 {
+    font-size: 14px; /* Diminui ainda mais o título */
+    margin-bottom: 8px; /* Ajusta o espaçamento */
+  }
+
+  .modal-content label {
+    font-size: 10px; /* Diminui o tamanho das labels */
+  }
+
+  .modal-content input,
+  .modal-content select {
+    font-size: 10px; /* Diminui o tamanho da fonte dos campos */
+    padding: 4px; /* Reduz o padding dos campos de entrada */
+    width: 100%; /* Faz os inputs ocuparem toda a largura do modal */
+    margin-bottom: 10px; /* Espaçamento entre os campos */
+  }
+
+  .modal-content button {
+    font-size: 12px; /* Aumenta um pouco o tamanho do texto do botão */
+    padding: 10px 15px; /* Aumenta o padding do botão */
+    margin-top: 10px; /* Espaço entre o botão e os campos */
+    width: 100%; /* Faz o botão ocupar toda a largura disponível */
+    box-sizing: border-box; /* Inclui o padding no cálculo da largura do botão */
+    background-color: #4CAF50; /* Cor de fundo verde para o botão */
+    color: white; /* Cor do texto branco */
+    border: none; /* Remove borda */
+    cursor: pointer; /* Torna o cursor um ponteiro para indicar que o botão é clicável */
+    transition: background-color 0.3s ease; /* Adiciona transição suave na cor do botão */
+  }
+
+  .modal-content button:hover {
+    background-color: #45a049; /* Cor de fundo mais escura no hover */
+  }
+
+  .close-button {
+    font-size: 16px; /* Aumenta o tamanho do ícone de fechar */
+    position: absolute; /* Posiciona no canto superior esquerdo */
+    top: 5px; /* Distância do topo */
+    left: 5px; /* Distância da esquerda */
+    background-color: transparent; /* Fundo transparente para o "X" */
+    border: none; /* Remove borda */
+    color: #888; /* Cor do "X" */
+    cursor: pointer; /* Cursor de ponteiro */
+  }
+
+  .close-button:hover {
+    color: #333; /* Muda a cor do "X" quando o mouse passar sobre ele */
+  }
+
+  .items-table th,
+  .items-table td {
+    padding: 4px; /* Reduz o padding nas células da tabela */
+    font-size: 8px; /* Fonte ainda menor para caber em telas pequenas */
+  }
+
+  .items-table th {
+    font-size: 8px; /* Reduz ainda mais o tamanho da fonte para os cabeçalhos */
+  }
+
+  .items-table td {
+    font-size: 8px; /* Fonte menor nas células */
+  }
 }
 
-.search-input {
-  width: 100%; /* Ajusta a largura para ocupar todo o espaço */
-  margin-bottom: 8px;
-}
-
-.search-button,
-.sell-button {
-  width: 100%; /* Botões em tela cheia */
-  margin-bottom: 8px;
-}
-
-.items-table {
-  font-size: 12px; /* Reduz o tamanho da fonte para caber na tela */
-  width: 100%; /* Ajusta a largura da tabela */
-}
-
-.items-table th,
-.items-table td {
-  padding: 5px; /* Reduz o espaçamento interno das células */
-}
-
-.modal-content {
-  width: 90%; /* Ajusta o modal para caber na tela menor */
-}
-
-.modal-content input,
-.modal-content select {
-  font-size: 14px; /* Reduz o tamanho da fonte no modal */
-}
-
-.modal-content button {
-  font-size: 14px; /* Reduz o tamanho do texto dos botões */
-  padding: 8px; /* Ajusta o padding dos botões */
-}
+@media (max-width: 414px) {
+  .items-table {
+    width: 30%; /* Reduz a largura do modal para se ajustar a telas médias */
+   
+  }
 }

@@ -1,10 +1,11 @@
-import axiosInstance from '../auth/axiosInstance'; 
+import axiosInstance from '../auth/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import useFormFields from './useFormFields';
 import useMessage from './useMessage';
-import { validatePasswordMatch } from '../utils/validation';
-import { useAuth } from '../auth/useAuth'; 
-import { useState } from 'react'; 
+import { handleApiError, handlePasswordValidationError, handleEmailValidationError } from '../utils/errorHandling';
+import { SUCCESS_MESSAGES, ERROR_MESSAGES } from '../utils/messages'; // Importando as mensagens
+import { useAuth } from '../auth/useAuth';
+import { useState } from 'react';
 
 const useRegister = () => {
   const navigate = useNavigate();
@@ -13,23 +14,27 @@ const useRegister = () => {
     name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
   });
-  
-  const { login } = useAuth(); 
-  const [loading, setLoading] = useState(false); 
+
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
     setError('');
-    setLoading(true); 
+    setLoading(true);
 
-    const validationError = validatePasswordMatch(fields.password, fields.confirmPassword);
-    if (validationError) {
-      console.log('Validation Error:', validationError);
-      setError(validationError);
-      setLoading(false); 
+    // Validação de senha
+    if (!handlePasswordValidationError(fields.password, fields.confirmPassword, setError)) {
+      setLoading(false);
+      return;
+    }
+
+    // Validação de e-mail
+    if (!handleEmailValidationError(fields.email, setError)) {
+      setLoading(false);
       return;
     }
 
@@ -39,40 +44,26 @@ const useRegister = () => {
         email: fields.email,
         password: fields.password,
       });
-    
-      console.log('Registro Response:', response.data);
-    
-      if (response.data.message === 'Usuário registrado com sucesso!') {
+
+      if (response.data.message === SUCCESS_MESSAGES.registrationSuccess) {
         const loginResponse = await axiosInstance.post('/login', {
           email: fields.email,
           password: fields.password,
         });
-    
-        console.log('Login Response:', loginResponse.data);
-    
+
         if (loginResponse.data.token) {
           login(loginResponse.data.token, loginResponse.data.user);
-          console.log('Login bem-sucedido. Redirecionando para o dashboard...');
-          setMessage('Cadastro e login bem-sucedidos! Você será redirecionado.');
-
+          setMessage(SUCCESS_MESSAGES.loginSuccess);
         } else {
-          console.log('Falha ao logar após cadastro.');
-          setMessage('Cadastro bem-sucedido, mas falha ao logar.');
+          setMessage(SUCCESS_MESSAGES.registrationLoginFail);
         }
       } else {
-        console.log('Erro ao cadastrar:', response.data.message); 
-        setMessage('Erro ao cadastrar.'); 
+        setMessage(ERROR_MESSAGES.registrationFail);
       }
     } catch (error) {
-      console.error('Erro no bloco catch:', error);
-      if (error.response) {
-        console.error('Erro de resposta da API:', error.response);
-        setError(error.response.data.message || 'Erro ao cadastrar.');
-      } else {
-        setError('Erro de rede. Tente novamente mais tarde.');
-      }
+      handleApiError(error, setError);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
@@ -82,7 +73,7 @@ const useRegister = () => {
     handleSubmit,
     message,
     error,
-    loading, 
+    loading,
   };
 };
 

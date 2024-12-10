@@ -16,7 +16,7 @@ const ItemsTable = ({ items, onAction }) => {
         const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-        return `${hours}h ${minutes}m ${seconds}s`;
+        return `${hours}h ${minutes}m `;
       });
     };
 
@@ -31,15 +31,15 @@ const ItemsTable = ({ items, onAction }) => {
 
   return (
     <table className="items-table">
-      <thead>
+      <thead>  
         <tr>
-          <th>Nome do Item</th>
+          <th>Nome</th>
           <th>Tipo</th>
-          <th>Quantidade</th>
-          <th>Duração</th>
+          <th>unit</th>
+          {/* <th>Duração</th> */}
           <th>Servidor</th>
           <th>Preço</th>
-          <th>Tempo Restante</th>
+          <th>Tempo </th>
         </tr>
       </thead>
       <tbody>
@@ -49,7 +49,7 @@ const ItemsTable = ({ items, onAction }) => {
               <td>{item.itemName}</td>
               <td>{item.itemType}</td>
               <td>{item.quantity}</td>
-              <td>{item.saleDuration} horas</td>
+              {/* <td>{item.saleDuration} horas</td> */}
               <td>{item.server}</td>
               <td>${item.price.toFixed(2)}</td>
               <td>{remainingTimes[index]}</td>
